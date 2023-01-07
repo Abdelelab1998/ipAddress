@@ -20,21 +20,18 @@
 
 
 // Fetch user IP address and store it in session storage
-
 <script>
-  
+
 (function getIpAddress() {
-  fetch('https://api.ipify.org?format=text')
-    .then(function(response) {
-      return response.text();
-    })
-    .then(function(ip) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'ipAddressEvent',
-        ipAddress: ip
+  if (!sessionStorage.getItem('ipAddress')) {
+    fetch('https://api.ipify.org?format=text')
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(ip) {
+        sessionStorage.setItem('ipAddress', ip);
       });
-    });
+  }
 })();
-  
+
 </script>
